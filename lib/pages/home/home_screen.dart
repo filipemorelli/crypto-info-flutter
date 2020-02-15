@@ -64,7 +64,6 @@ class HomeScreenContent extends StatelessWidget {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Crypto Info"),
-        elevation: 5,
         actions: <Widget>[
           PopupMenuButtonHome(),
         ],
@@ -87,7 +86,8 @@ class HomeScreenContent extends StatelessWidget {
                     double.parse(cryptoCurrency.priceUsd).toStringAsFixed(2)),
                 trailing: Icon(Icons.chevron_right),
                 onTap: () {
-                  Navigator.pushNamed(context, "teste");
+                  Navigator.pushNamed(context, "crypto-info",
+                      arguments: cryptoCurrency);
                 },
                 onLongPress: () {
                   showToast(
