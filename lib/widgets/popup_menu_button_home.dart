@@ -1,4 +1,4 @@
-import 'package:crypto_info/global/functions.dart';
+import 'package:crypto_info/global/enum.dart';
 import 'package:flutter/material.dart';
 
 class PopupMenuButtonHome extends StatelessWidget {

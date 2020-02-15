@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
-
-enum HomePopupMenuButtonTypes { settings }
-
 showToast({
   @required GlobalKey<ScaffoldState> scaffoldKey,
   @required String text,

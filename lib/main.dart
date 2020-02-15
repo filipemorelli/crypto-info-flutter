@@ -1,4 +1,5 @@
-import 'package:crypto_info/global/functions.dart';
+import 'package:crypto_info/global/constants.dart';
+import 'package:crypto_info/global/style.dart';
 import 'package:crypto_info/pages/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,16 +11,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      showSemanticsDebugger: false,
+      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+      showSemanticsDebugger: showSemanticsDebugger,
       navigatorKey: navigatorKey,
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        snackBarTheme: SnackBarThemeData(
-          behavior: SnackBarBehavior.floating,
-          elevation: 5,
-        ),
-      ),
+      theme: mainThemData,
       home: HomeScreen(),
     );
   }
