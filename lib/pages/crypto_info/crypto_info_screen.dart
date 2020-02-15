@@ -2,7 +2,7 @@ import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
 import 'package:flutter/material.dart';
 
 class CryptoInfoScreen extends StatefulWidget {
-  CryptoCurrency cryptoCurrency;
+  final CryptoCurrency cryptoCurrency;
 
   CryptoInfoScreen({@required this.cryptoCurrency});
 
