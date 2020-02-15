@@ -1,4 +1,3 @@
-import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
 import 'package:crypto_info/pages/404/NotFound.dart';
 import 'package:crypto_info/pages/crypto_info/crypto_info_screen.dart';
 import 'package:crypto_info/pages/home/home_screen.dart';

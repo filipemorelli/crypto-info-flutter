@@ -75,28 +75,30 @@ class HomeScreenContent extends StatelessWidget {
         },
         child: SafeArea(
           bottom: false,
-          child: ListView.builder(
-            itemCount: _snapshot.data.length,
-            itemBuilder: (BuildContext ctx, int i) {
-              CryptoCurrency cryptoCurrency = _snapshot.data[i];
-              return ListTile(
-                leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
-                title: Text(cryptoCurrency.name),
-                subtitle: Text("\$ " +
-                    double.parse(cryptoCurrency.priceUsd).toStringAsFixed(2)),
-                trailing: Icon(Icons.chevron_right),
-                onTap: () {
-                  Navigator.pushNamed(context, "crypto-info",
-                      arguments: cryptoCurrency);
-                },
-                onLongPress: () {
-                  showToast(
-                    scaffoldKey: _scaffoldKey,
-                    text: cryptoCurrency.name,
-                  );
-                },
-              );
-            },
+          child: Scrollbar(
+            child: ListView.builder(
+              itemCount: _snapshot.data.length,
+              itemBuilder: (BuildContext ctx, int i) {
+                CryptoCurrency cryptoCurrency = _snapshot.data[i];
+                return ListTile(
+                  leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
+                  title: Text(cryptoCurrency.name),
+                  subtitle: Text("\$ " +
+                      double.parse(cryptoCurrency.priceUsd).toStringAsFixed(2)),
+                  trailing: Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.pushNamed(context, "crypto-info",
+                        arguments: cryptoCurrency);
+                  },
+                  onLongPress: () {
+                    showToast(
+                      scaffoldKey: _scaffoldKey,
+                      text: cryptoCurrency.name,
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),
