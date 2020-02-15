@@ -28,16 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: cryptoCurrencyBloc.cryptoCurrencyStream,
-      builder: (context, AsyncSnapshot<List<CryptoCurrency>> snapshot) {
-        if (snapshot.hasData) {
-          return HomeScreenContent(
-              scaffoldKey: _scaffoldKey, snapshot: snapshot);
-        } else {
-          return LoadingScreen();
-        }
-      },
+    return CryptoCurrencyBlocProvider(
+      bloc: cryptoCurrencyBloc,
+      child: StreamBuilder(
+        stream: cryptoCurrencyBloc.cryptoCurrencyStream,
+        builder: (context, AsyncSnapshot<List<CryptoCurrency>> snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreenContent(
+                scaffoldKey: _scaffoldKey, snapshot: snapshot);
+          } else {
+            return LoadingScreen();
+          }
+        },
+      ),
     );
   }
 }
@@ -56,6 +59,7 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cryptoCurrencyBloc = CryptoCurrencyBlocProvider.of(context).bloc;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -65,26 +69,34 @@ class HomeScreenContent extends StatelessWidget {
           PopupMenuButtonHome(),
         ],
       ),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: _snapshot.data.length,
-          itemBuilder: (BuildContext ctx, int i) {
-            CryptoCurrency cryptoCurrency = _snapshot.data[i];
-            return ListTile(
-              leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
-              title: Text(cryptoCurrency.name),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                print(cryptoCurrency.toJson());
-              },
-              onLongPress: () {
-                showToast(
-                  scaffoldKey: _scaffoldKey,
-                  text: cryptoCurrency.name,
-                );
-              },
-            );
-          },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await cryptoCurrencyBloc.loadCryptoCurrenciesData();
+          return Future.value(null);
+        },
+        child: SafeArea(
+          child: ListView.builder(
+            itemCount: _snapshot.data.length,
+            itemBuilder: (BuildContext ctx, int i) {
+              CryptoCurrency cryptoCurrency = _snapshot.data[i];
+              return ListTile(
+                leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
+                title: Text(cryptoCurrency.name),
+                subtitle: Text("\$ " +
+                    double.parse(cryptoCurrency.priceUsd).toStringAsFixed(2)),
+                trailing: Icon(Icons.chevron_right),
+                onTap: () {
+                  print(cryptoCurrency.toJson());
+                },
+                onLongPress: () {
+                  showToast(
+                    scaffoldKey: _scaffoldKey,
+                    text: cryptoCurrency.name,
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
