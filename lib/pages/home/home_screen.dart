@@ -87,7 +87,7 @@ class HomeScreenContent extends StatelessWidget {
                     double.parse(cryptoCurrency.priceUsd).toStringAsFixed(2)),
                 trailing: Icon(Icons.chevron_right),
                 onTap: () {
-                  print(cryptoCurrency.toJson());
+                  Navigator.pushNamed(context, "teste");
                 },
                 onLongPress: () {
                   showToast(

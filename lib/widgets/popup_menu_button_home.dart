@@ -13,7 +13,7 @@ class PopupMenuButtonHome extends StatelessWidget {
       onSelected: (HomePopupMenuButtonTypes option) {
         switch (option) {
           case HomePopupMenuButtonTypes.settings:
-            print("Oii");
+            Navigator.pushNamed(context, "settings");
             break;
           default:
         }
