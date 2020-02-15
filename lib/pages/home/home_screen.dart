@@ -74,7 +74,9 @@ class HomeScreenContent extends StatelessWidget {
               leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
               title: Text(cryptoCurrency.name),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {},
+              onTap: () {
+                print(cryptoCurrency.toJson());
+              },
               onLongPress: () {
                 showToast(
                   scaffoldKey: _scaffoldKey,

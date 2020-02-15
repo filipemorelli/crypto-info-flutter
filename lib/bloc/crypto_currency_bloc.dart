@@ -42,19 +42,19 @@ class CryptoCurrency {
         changePercent24Hr = json["changePercent24Hr"],
         vwap24Hr = json["vwap24Hr"];
 
-  toJson() {
+  Map<String, String> toJson() {
     return {
-      "id": "bitcoin",
-      "rank": "1",
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "supply": "17193925.0000000000000000",
-      "maxSupply": "21000000.0000000000000000",
-      "marketCapUsd": "119150835874.4699281625807300",
-      "volumeUsd24Hr": "2927959461.1750323310959460",
-      "priceUsd": "6929.8217756835584756",
-      "changePercent24Hr": "-0.8101417214350335",
-      "vwap24Hr": "7175.0663247679233209"
+      "id": this.id,
+      "rank": this.rank,
+      "symbol": this.symbol,
+      "name": this.name,
+      "supply": this.supply,
+      "maxSupply": this.maxSupply,
+      "marketCapUsd": this.marketCapUsd,
+      "volumeUsd24Hr": this.volumeUsd24Hr,
+      "priceUsd": this.priceUsd,
+      "changePercent24Hr": this.changePercent24Hr,
+      "vwap24Hr": this.vwap24Hr
     };
   }
 }
