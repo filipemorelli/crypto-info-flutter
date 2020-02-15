@@ -84,7 +84,8 @@ class HomeScreenContent extends StatelessWidget {
                   leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
                   title: Text(cryptoCurrency.name),
                   subtitle: Text("\$ " +
-                      double.parse(cryptoCurrency.priceUsd).toStringAsFixed(2)),
+                      double.parse(cryptoCurrency.priceUsd ?? "0")
+                          .toStringAsFixed(8)),
                   trailing: Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.pushNamed(context, "crypto-info",
