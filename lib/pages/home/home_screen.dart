@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
 import 'package:crypto_info/global/functions.dart';
 import 'package:crypto_info/pages/loading/loading_screen.dart';
@@ -81,7 +82,14 @@ class HomeScreenContent extends StatelessWidget {
               itemBuilder: (BuildContext ctx, int i) {
                 CryptoCurrency cryptoCurrency = _snapshot.data[i];
                 return ListTile(
-                  leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
+                  leading: CachedNetworkImage(
+                    imageUrl:
+                        "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
+                    placeholder: (context, url) => CircleAvatar(
+                        radius: 29, child: Text(cryptoCurrency.name[0])),
+                    errorWidget: (context, url, error) => CircleAvatar(
+                        radius: 27, child: Text(cryptoCurrency.name[0])),
+                  ),
                   title: Text(cryptoCurrency.name),
                   subtitle: Text("\$ " +
                       double.parse(cryptoCurrency.priceUsd ?? "0")
