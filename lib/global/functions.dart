@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final NAVIGATOR_KEY = GlobalKey<NavigatorState>();
+final navigatorKey = GlobalKey<NavigatorState>();
 
 enum HomePopupMenuButtonTypes { settings }
 

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       showSemanticsDebugger: false,
-      navigatorKey: NAVIGATOR_KEY,
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.teal,
         snackBarTheme: SnackBarThemeData(
