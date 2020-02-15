@@ -86,7 +86,7 @@ class HomeScreenContent extends StatelessWidget {
                     imageUrl:
                         "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
                     placeholder: (context, url) => CircleAvatar(
-                        radius: 29, child: Text(cryptoCurrency.name[0])),
+                        radius: 27, child: Text(cryptoCurrency.name[0])),
                     errorWidget: (context, url, error) => CircleAvatar(
                         radius: 27, child: Text(cryptoCurrency.name[0])),
                   ),
