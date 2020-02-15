@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class CryptoCurrency {
@@ -90,4 +91,21 @@ class CryptoCurrencyBloc {
   dispose() {
     _streamController.close();
   }
+}
+
+class CryptoCurrencyBlocProvider extends InheritedWidget {
+  final CryptoCurrencyBloc bloc;
+  final Widget child;
+
+  CryptoCurrencyBlocProvider({
+    Key key,
+    @required this.bloc,
+    this.child,
+  }) : super(key: key, child: child);
+
+  static CryptoCurrencyBlocProvider of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<CryptoCurrencyBlocProvider>();
+
+  @override
+  bool updateShouldNotify(CryptoCurrencyBlocProvider oldWidget) => true;
 }
