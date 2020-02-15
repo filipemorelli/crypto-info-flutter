@@ -6,4 +6,7 @@ final ThemeData mainThemData = ThemeData(
     behavior: SnackBarBehavior.floating,
     elevation: 5,
   ),
+  appBarTheme: AppBarTheme(
+    elevation: 5,
+  ),
 );
