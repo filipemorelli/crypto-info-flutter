@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: cryptoCurrencyBloc.cryptoCurrencyStream,
-      builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+      builder: (context, AsyncSnapshot<List<CryptoCurrency>> snapshot) {
         if (snapshot.hasData) {
           return HomeScreenContent(
               scaffoldKey: _scaffoldKey, snapshot: snapshot);
@@ -46,13 +46,13 @@ class HomeScreenContent extends StatelessWidget {
   const HomeScreenContent({
     Key key,
     @required GlobalKey<ScaffoldState> scaffoldKey,
-    @required AsyncSnapshot<List<Map<String, dynamic>>> snapshot,
+    @required AsyncSnapshot<List<CryptoCurrency>> snapshot,
   })  : _scaffoldKey = scaffoldKey,
         _snapshot = snapshot,
         super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey;
-  final AsyncSnapshot<List<Map<String, dynamic>>> _snapshot;
+  final AsyncSnapshot<List<CryptoCurrency>> _snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -69,14 +69,16 @@ class HomeScreenContent extends StatelessWidget {
         child: ListView.builder(
           itemCount: _snapshot.data.length,
           itemBuilder: (BuildContext ctx, int i) {
+            CryptoCurrency cryptoCurrency = _snapshot.data[i];
             return ListTile(
-              title: Text(_snapshot.data[i]['name']),
+              leading: CircleAvatar(child: Text(cryptoCurrency.name[0])),
+              title: Text(cryptoCurrency.name),
               trailing: Icon(Icons.chevron_right),
               onTap: () {},
               onLongPress: () {
                 showToast(
                   scaffoldKey: _scaffoldKey,
-                  text: _snapshot.data[i]['name'],
+                  text: cryptoCurrency.name,
                 );
               },
             );
