@@ -75,6 +75,7 @@ class HomeScreenContent extends StatelessWidget {
           return Future.value(null);
         },
         child: SafeArea(
+          bottom: false,
           child: ListView.builder(
             itemCount: _snapshot.data.length,
             itemBuilder: (BuildContext ctx, int i) {
