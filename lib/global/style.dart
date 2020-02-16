@@ -10,3 +10,9 @@ final ThemeData mainThemData = ThemeData(
     elevation: 5,
   ),
 );
+
+final TextStyle headerStyle = TextStyle(
+  fontSize: 48,
+  fontWeight: FontWeight.w700,
+  color: Colors.teal,
+);

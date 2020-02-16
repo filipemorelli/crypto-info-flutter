@@ -1,1 +1,1 @@
-enum HomePopupMenuButtonTypes { settings }
+enum HomePopupMenuButtonTypes { settings, notFound }

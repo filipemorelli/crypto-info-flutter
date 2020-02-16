@@ -15,6 +15,9 @@ class PopupMenuButtonHome extends StatelessWidget {
           case HomePopupMenuButtonTypes.settings:
             Navigator.pushNamed(context, "settings");
             break;
+          case HomePopupMenuButtonTypes.notFound:
+            Navigator.pushNamed(context, "notFound");
+            break;
           default:
         }
       },
@@ -23,6 +26,10 @@ class PopupMenuButtonHome extends StatelessWidget {
           PopupMenuItem(
             value: HomePopupMenuButtonTypes.settings,
             child: Text("Configurações"),
+          ),
+          PopupMenuItem(
+            value: HomePopupMenuButtonTypes.notFound,
+            child: Text("Não Encontrado"),
           )
         ];
       },
