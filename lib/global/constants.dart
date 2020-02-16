@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
-final debugShowCheckedModeBanner = false;
-final showSemanticsDebugger = false;
-final navigatorKey = GlobalKey<NavigatorState>();
+final bool debugShowCheckedModeBanner = false;
+final bool showSemanticsDebugger = false;
+final double spaceSize = 15;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
