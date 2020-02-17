@@ -11,37 +11,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  CryptoCurrencyBloc cryptoCurrencyBloc;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    cryptoCurrencyBloc = CryptoCurrencyBloc();
-    cryptoCurrencyBloc.loadCryptoCurrenciesData();
+    CryptoCurrencyBloc.instance.loadCryptoCurrenciesData();
   }
 
   @override
   void dispose() {
     super.dispose();
-    cryptoCurrencyBloc.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CryptoCurrencyBlocProvider(
-      bloc: cryptoCurrencyBloc,
-      child: StreamBuilder(
-        stream: cryptoCurrencyBloc.cryptoCurrencyStream,
-        builder: (context, AsyncSnapshot<List<CryptoCurrency>> snapshot) {
-          if (snapshot.hasData) {
-            return HomeScreenContent(
-                scaffoldKey: _scaffoldKey, snapshot: snapshot);
-          } else {
-            return LoadingScreen();
-          }
-        },
-      ),
+    return StreamBuilder(
+      stream: CryptoCurrencyBloc.instance.cryptoCurrencyStream,
+      builder: (context, AsyncSnapshot<List<CryptoCurrency>> snapshot) {
+        if (snapshot.hasData) {
+          return HomeScreenContent(
+              scaffoldKey: _scaffoldKey, snapshot: snapshot);
+        } else {
+          return LoadingScreen();
+        }
+      },
     );
   }
 }
@@ -60,7 +54,6 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cryptoCurrencyBloc = CryptoCurrencyBlocProvider.of(context).bloc;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -71,7 +64,7 @@ class HomeScreenContent extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await cryptoCurrencyBloc.loadCryptoCurrenciesData();
+          await CryptoCurrencyBloc.instance.loadCryptoCurrenciesData();
           return Future.value(null);
         },
         child: SafeArea(

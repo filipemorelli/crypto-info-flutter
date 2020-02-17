@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CryptoCurrency {
   final String id;
@@ -64,16 +66,25 @@ class CryptoCurrencyBloc {
   String _url = "https://api.coincap.io/v2/assets";
   int _limit = 2000;
   StreamController<List<CryptoCurrency>> _streamController;
+  StreamController<int> _streamControllerLimit;
 
-  CryptoCurrencyBloc() {
-    _streamController = new StreamController();
+  static final CryptoCurrencyBloc instance = CryptoCurrencyBloc._();
+
+  factory CryptoCurrencyBloc() => instance;
+
+  CryptoCurrencyBloc._() {
+    _streamController = new StreamController.broadcast();
+    _streamControllerLimit = new StreamController.broadcast();
   }
 
   Stream<List<CryptoCurrency>> get cryptoCurrencyStream =>
       _streamController.stream;
+  Stream<int> get cryptoCurrencyStreamLimit => _streamControllerLimit.stream;
+  int get limit => _limit;
 
   loadCryptoCurrenciesData() async {
     try {
+      await this.loadData();
       Response response = await get(this._url + "?limit=$_limit");
       Map<String, dynamic> result = convert.jsonDecode(response.body);
       List<Map<String, dynamic>> data =
@@ -88,8 +99,22 @@ class CryptoCurrencyBloc {
     }
   }
 
+  loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    this._limit = prefs.getInt("CryptoCurrencyBloc_limit") ?? this._limit;
+  }
+
+  updateLimit(int limit) async {
+    this._limit = limit;
+    this._streamControllerLimit.sink.add(limit);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("CryptoCurrencyBloc_limit", limit);
+    this.loadCryptoCurrenciesData();
+  }
+
   dispose() {
     _streamController.close();
+    _streamControllerLimit.close();
   }
 }
 
