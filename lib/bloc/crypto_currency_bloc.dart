@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -116,21 +114,4 @@ class CryptoCurrencyBloc {
     _streamController.close();
     _streamControllerLimit.close();
   }
-}
-
-class CryptoCurrencyBlocProvider extends InheritedWidget {
-  final CryptoCurrencyBloc bloc;
-  final Widget child;
-
-  CryptoCurrencyBlocProvider({
-    Key key,
-    @required this.bloc,
-    this.child,
-  }) : super(key: key, child: child);
-
-  static CryptoCurrencyBlocProvider of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<CryptoCurrencyBlocProvider>();
-
-  @override
-  bool updateShouldNotify(CryptoCurrencyBlocProvider oldWidget) => true;
 }
