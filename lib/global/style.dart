@@ -16,3 +16,9 @@ final TextStyle headerStyle = TextStyle(
   fontWeight: FontWeight.w700,
   color: Colors.teal,
 );
+
+final TextStyle header2Style = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w700,
+  color: Colors.teal,
+);

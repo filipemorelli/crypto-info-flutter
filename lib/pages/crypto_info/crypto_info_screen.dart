@@ -2,6 +2,7 @@ import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
 import 'package:crypto_info/global/constants.dart';
 import 'package:crypto_info/global/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_candlesticks/flutter_candlesticks.dart';
 
 class CryptoInfoScreen extends StatefulWidget {
   final CryptoCurrency cryptoCurrency;
@@ -14,21 +15,46 @@ class CryptoInfoScreen extends StatefulWidget {
 
 class _CryptoInfoScreenState extends State<CryptoInfoScreen> {
   @override
+  void initState() {
+    super.initState();
+    CryptoCurrencyBloc.instance.loadCryptoCurrencyCandle(widget.cryptoCurrency);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.cryptoCurrency.name),
+        title: Text(widget.cryptoCurrency.id),
       ),
       body: SafeArea(
         bottom: false,
         child: ListView(
           padding: EdgeInsets.only(top: spaceSize),
           children: <Widget>[
-            Center(
-              child: Text(
-                widget.cryptoCurrency.rank,
-                style: headerStyle,
-              ),
+            Container(
+              padding: EdgeInsets.all(spaceSize),
+              child: StreamBuilder<List<CryptoCurrencyCandle>>(
+                  stream:
+                      CryptoCurrencyBloc.instance.cryptoCurrencyCandleStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data.isNotEmpty) {
+                      return OHLCVGraph(
+                        data: snapshot.data
+                            .map((CryptoCurrencyCandle c) => c.toJson())
+                            .toList(),
+                        enableGridLines: false,
+                        volumeProp: 0.2,
+                      );
+                    } else if (snapshot.hasData && snapshot.data.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "Não possui informações.",
+                          style: header2Style,
+                        ),
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
             ),
             ListTile(
               title: Text("Simbolo: " + widget.cryptoCurrency.symbol),
