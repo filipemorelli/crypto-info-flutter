@@ -95,7 +95,7 @@ class CryptoCurrencyBloc {
     } catch (e) {
       log(e.toString(),
           name: "loadCryptoCurrenciesData", stackTrace: StackTrace.current);
-      throw e;
+      return Future.error(e);
     }
   }
 
