@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
+import 'package:crypto_info/global/constants.dart';
 import 'package:crypto_info/global/functions.dart';
 import 'package:crypto_info/pages/loading/loading_screen.dart';
 import 'package:crypto_info/widgets/popup_menu_button_home.dart';
@@ -29,12 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return StreamBuilder(
       stream: CryptoCurrencyBloc.instance.cryptoCurrencyStream,
       builder: (context, AsyncSnapshot<List<CryptoCurrency>> snapshot) {
-        if (snapshot.hasData) {
-          return HomeScreenContent(
-              scaffoldKey: _scaffoldKey, snapshot: snapshot);
-        } else {
-          return LoadingScreen();
-        }
+        return HomeScreenContent(scaffoldKey: _scaffoldKey, snapshot: snapshot);
       },
     );
   }
@@ -69,7 +65,15 @@ class HomeScreenContent extends StatelessWidget {
         },
         child: SafeArea(
           bottom: false,
-          child: Scrollbar(
+          child: buildCryptoCurrenciesList(context),
+        ),
+      ),
+    );
+  }
+
+  Widget buildCryptoCurrenciesList(BuildContext context) {
+    return _snapshot.hasData
+        ? Scrollbar(
             child: ListView.builder(
               itemCount: _snapshot.data.length,
               itemBuilder: (BuildContext ctx, int i) {
@@ -101,9 +105,14 @@ class HomeScreenContent extends StatelessWidget {
                 );
               },
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        : Container(
+            margin: EdgeInsets.only(top: spaceSize),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[CircularProgressIndicator()],
+            ),
+          );
   }
 }
