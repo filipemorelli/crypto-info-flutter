@@ -6,6 +6,6 @@ showToast({
 }) {
   scaffoldKey.currentState.showSnackBar(SnackBar(
     content: Text(text),
-    duration: Duration(seconds: 3),
+    duration: Duration(seconds: 5),
   ));
 }

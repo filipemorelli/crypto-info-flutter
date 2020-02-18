@@ -17,7 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    CryptoCurrencyBloc.instance.loadCryptoCurrenciesData();
+    CryptoCurrencyBloc.instance.loadCryptoCurrenciesData().catchError((e) {
+      showToast(
+          scaffoldKey: _scaffoldKey,
+          text: "Não foi possivel buscar os dados no servidor.");
+    });
   }
 
   @override
@@ -60,7 +64,13 @@ class HomeScreenContent extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await CryptoCurrencyBloc.instance.loadCryptoCurrenciesData();
+          try {
+            await CryptoCurrencyBloc.instance.loadCryptoCurrenciesData();
+          } catch (e) {
+            showToast(
+                scaffoldKey: _scaffoldKey,
+                text: "Não foi possivel buscar os dados no servidor.");
+          }
           return Future.value(null);
         },
         child: SafeArea(

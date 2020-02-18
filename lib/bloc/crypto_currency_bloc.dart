@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'dart:developer';
+import 'package:crypto_info/global/functions.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -80,7 +81,7 @@ class CryptoCurrencyBloc {
   Stream<int> get cryptoCurrencyStreamLimit => _streamControllerLimit.stream;
   int get limit => _limit;
 
-  loadCryptoCurrenciesData() async {
+  Future loadCryptoCurrenciesData() async {
     try {
       await this.loadData();
       Response response = await get(this._url + "?limit=$_limit");
@@ -94,6 +95,7 @@ class CryptoCurrencyBloc {
     } catch (e) {
       log(e.toString(),
           name: "loadCryptoCurrenciesData", stackTrace: StackTrace.current);
+      throw e;
     }
   }
 
