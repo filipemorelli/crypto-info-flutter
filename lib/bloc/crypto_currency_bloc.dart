@@ -10,7 +10,7 @@ import 'package:web_socket_channel/io.dart';
 class CryptoCurrencyBloc {
   String _urlAssets = "https://api.coincap.io/v2/assets";
   String _urlCandle = "https://api.coincap.io/v2/candles";
-  int _limit = 2000;
+  int _limit = 10;
   StreamController<List<CryptoCurrency>> _streamController;
   StreamController<List<CryptoCurrencyCandle>> _streamControllerCandle;
   StreamController<int> _streamControllerLimit;
