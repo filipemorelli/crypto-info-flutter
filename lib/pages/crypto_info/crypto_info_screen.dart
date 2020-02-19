@@ -63,7 +63,7 @@ class _CryptoInfoScreenState extends State<CryptoInfoScreen> {
             ),
             ListTile(
               title:
-                  Text("Preço: " + widget.cryptoCurrency.priceUsd.toString()),
+                  Text("Preço: \$ " + widget.cryptoCurrency.priceUsd.toString()),
             ),
             ListTile(
               title: Text(

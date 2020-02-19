@@ -35,6 +35,7 @@ class CryptoCurrencyListItem extends StatelessWidget {
         builder: (context, snapshot) {
           Map<String, dynamic> priceObject = convert.jsonDecode(snapshot.data);
           if (snapshot.hasData && priceObject != null) {
+            cryptoCurrency.priceUsd = priceObject[cryptoCurrency.id].toString();
             return Text("\$ " +
                 double.parse(priceObject[cryptoCurrency.id].toString() ?? "0")
                     .toStringAsFixed(8));
