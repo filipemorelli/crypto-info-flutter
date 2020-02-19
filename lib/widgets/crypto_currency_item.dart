@@ -20,13 +20,16 @@ class CryptoCurrencyListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CachedNetworkImage(
-        imageUrl:
-            "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
-        placeholder: (context, url) =>
-            CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
-        errorWidget: (context, url, error) =>
-            CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
+      leading: Hero(
+        tag: cryptoCurrency.id,
+        child: CachedNetworkImage(
+          imageUrl:
+              "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
+          placeholder: (context, url) =>
+              CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
+          errorWidget: (context, url, error) =>
+              CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
+        ),
       ),
       title: Text(cryptoCurrency.name),
       subtitle: StreamBuilder(

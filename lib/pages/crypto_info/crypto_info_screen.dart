@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
 import 'package:crypto_info/classes/crypto_currency.dart';
 import 'package:crypto_info/classes/crypto_currency_candle.dart';
@@ -26,7 +27,24 @@ class _CryptoInfoScreenState extends State<CryptoInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.cryptoCurrency.id),
+        title: Text(widget.cryptoCurrency.name),
+        actions: <Widget>[
+          Container(
+            width: 48,
+            height: 48,
+            child: Hero(
+              tag: widget.cryptoCurrency.id,
+              child: CachedNetworkImage(
+                imageUrl:
+                    "https://static.coincap.io/assets/icons/${widget.cryptoCurrency.symbol.toLowerCase()}@2x.png",
+                placeholder: (context, url) => CircleAvatar(
+                    radius: 27, child: Text(widget.cryptoCurrency.name[0])),
+                errorWidget: (context, url, error) => CircleAvatar(
+                    radius: 27, child: Text(widget.cryptoCurrency.name[0])),
+              ),
+            ),
+          )
+        ],
       ),
       body: SafeArea(
         bottom: false,
@@ -62,8 +80,8 @@ class _CryptoInfoScreenState extends State<CryptoInfoScreen> {
               title: Text("Simbolo: " + widget.cryptoCurrency.symbol),
             ),
             ListTile(
-              title:
-                  Text("Preço: \$ " + widget.cryptoCurrency.priceUsd.toString()),
+              title: Text(
+                  "Preço: \$ " + widget.cryptoCurrency.priceUsd.toString()),
             ),
             ListTile(
               title: Text(
