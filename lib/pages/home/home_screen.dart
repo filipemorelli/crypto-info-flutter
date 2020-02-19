@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
+import 'package:crypto_info/classes/crypto_currency.dart';
 import 'package:crypto_info/global/constants.dart';
 import 'package:crypto_info/global/functions.dart';
-import 'package:crypto_info/pages/loading/loading_screen.dart';
+import 'package:crypto_info/widgets/crypto_currency_item.dart';
 import 'package:crypto_info/widgets/popup_menu_button_home.dart';
 import 'package:flutter/material.dart';
 
@@ -68,8 +68,9 @@ class HomeScreenContent extends StatelessWidget {
             await CryptoCurrencyBloc.instance.loadCryptoCurrenciesData();
           } catch (e) {
             showToast(
-                scaffoldKey: _scaffoldKey,
-                text: "Não foi possivel buscar os dados no servidor.");
+              scaffoldKey: _scaffoldKey,
+              text: "Não foi possivel buscar os dados no servidor.",
+            );
           }
           return Future.value(null);
         },
@@ -88,30 +89,9 @@ class HomeScreenContent extends StatelessWidget {
               itemCount: _snapshot.data.length,
               itemBuilder: (BuildContext ctx, int i) {
                 CryptoCurrency cryptoCurrency = _snapshot.data[i];
-                return ListTile(
-                  leading: CachedNetworkImage(
-                    imageUrl:
-                        "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
-                    placeholder: (context, url) => CircleAvatar(
-                        radius: 27, child: Text(cryptoCurrency.name[0])),
-                    errorWidget: (context, url, error) => CircleAvatar(
-                        radius: 27, child: Text(cryptoCurrency.name[0])),
-                  ),
-                  title: Text(cryptoCurrency.name),
-                  subtitle: Text("\$ " +
-                      double.parse(cryptoCurrency.priceUsd ?? "0")
-                          .toStringAsFixed(2)),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () {
-                    Navigator.pushNamed(context, "crypto-info",
-                        arguments: cryptoCurrency);
-                  },
-                  onLongPress: () {
-                    showToast(
-                      scaffoldKey: _scaffoldKey,
-                      text: cryptoCurrency.name,
-                    );
-                  },
+                return CryptoCurrencyListItem(
+                  cryptoCurrency: cryptoCurrency,
+                  scaffoldKey: _scaffoldKey,
                 );
               },
             ),

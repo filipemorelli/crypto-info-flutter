@@ -1,4 +1,6 @@
 import 'package:crypto_info/bloc/crypto_currency_bloc.dart';
+import 'package:crypto_info/classes/crypto_currency.dart';
+import 'package:crypto_info/classes/crypto_currency_candle.dart';
 import 'package:crypto_info/global/constants.dart';
 import 'package:crypto_info/global/style.dart';
 import 'package:flutter/material.dart';
