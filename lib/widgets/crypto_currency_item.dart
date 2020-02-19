@@ -20,13 +20,16 @@ class CryptoCurrencyListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CachedNetworkImage(
-        imageUrl:
-            "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
-        placeholder: (context, url) =>
-            CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
-        errorWidget: (context, url, error) =>
-            CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
+      leading: Hero(
+        tag: cryptoCurrency.id,
+        child: CachedNetworkImage(
+          imageUrl:
+              "https://static.coincap.io/assets/icons/${cryptoCurrency.symbol.toLowerCase()}@2x.png",
+          placeholder: (context, url) =>
+              CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
+          errorWidget: (context, url, error) =>
+              CircleAvatar(radius: 27, child: Text(cryptoCurrency.name[0])),
+        ),
       ),
       title: Text(cryptoCurrency.name),
       subtitle: StreamBuilder(
@@ -35,6 +38,7 @@ class CryptoCurrencyListItem extends StatelessWidget {
         builder: (context, snapshot) {
           Map<String, dynamic> priceObject = convert.jsonDecode(snapshot.data);
           if (snapshot.hasData && priceObject != null) {
+            cryptoCurrency.priceUsd = priceObject[cryptoCurrency.id].toString();
             return Text("\$ " +
                 double.parse(priceObject[cryptoCurrency.id].toString() ?? "0")
                     .toStringAsFixed(8));

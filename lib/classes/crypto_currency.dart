@@ -1,15 +1,15 @@
 class CryptoCurrency {
-  final String id;
-  final String rank;
-  final String symbol;
-  final String name;
-  final String supply;
-  final String maxSupply;
-  final String marketCapUsd;
-  final String volumeUsd24Hr;
-  final String priceUsd;
-  final String changePercent24Hr;
-  final String vwap24Hr;
+  String id;
+  String rank;
+  String symbol;
+  String name;
+  String supply;
+  String maxSupply;
+  String marketCapUsd;
+  String volumeUsd24Hr;
+  String priceUsd;
+  String changePercent24Hr;
+  String vwap24Hr;
 
   CryptoCurrency(
       this.id,
