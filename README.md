@@ -1,18 +1,12 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/filipemorelli/crypto-info-flutter) 
+# Crypto Info - Flutter
 
-# crypto_info
+Projeto para buscar e visualizar os preços de crypto moedas.
 
-A new Flutter project.
+* O projeto segue o padrão Bloc de desenvolvimento
+* Implementação de Gráficos para exibir o historico de valores
 
-## Getting Started
+![Imagem 1](https://lh3.googleusercontent.com/9JU_mIY38LXtu5ii1JBBvaR7aecGi2yb2r063Wve5SuM9WxMxJRx76Ez_T9G6Myhuze9=w1880-h979-rw)
+![Imagem 2](https://lh3.googleusercontent.com/2k0Tzu6MFiB1nw44x2X2VjUSDOYB-IkhIWhEEL41qmGn9pYB6VJ4qvcxlcF4lTGWPoc=w1880-h979-rw)
+![Imagem 3](https://lh3.googleusercontent.com/1u9Vovnc65LbDFLTVscnMRWnlZuNk4mGSZ4BSJEy6z0RM0ZDhuyKQCPlLDqsBNRnTQ=w1880-h979-rw)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[![PlayStore](https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/123405905/original/bb8cca0d1d7d12de98740e54b807b64f6693942b/upload-your-android-applications-on-playstore.png)](https://play.google.com/store/apps/details?id=com.filipemorelli.crypto_info)
